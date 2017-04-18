@@ -1,0 +1,45 @@
+{
+  "ProjectName": "HLOGOS-CPD",
+  "ProjectGuid": "ae78db51-c9bb-4a49-85c6-96a611e303da",
+  "projectVersion": 1,
+  "AppIdentifier": "com.telerik.HLOGOSCPD",
+  "DisplayName": "HLOGOS-CPD",
+  "Author": "",
+  "Description": "HLOGOS-CPD",
+  "BundleVersion": "1.0",
+  "AndroidVersionCode": "1",
+  "iOSDeviceFamily": [
+    "1",
+    "2"
+  ],
+  "iOSBackgroundMode": [],
+  "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
+  "FrameworkVersion": "6.4.0",
+  "AndroidPermissions": [
+    "android.permission.INTERNET"
+  ],
+  "DeviceOrientations": [
+    "Portrait",
+    "Landscape"
+  ],
+  "AndroidHardwareAcceleration": "true",
+  "iOSStatusBarStyle": "Default",
+  "Framework": "Cordova",
+  "WP8TileTitle": "",
+  "WP8Publisher": "",
+  "WP8Capabilities": [
+    "ID_CAP_NETWORKING",
+    "ID_CAP_WEBBROWSERCOMPONENT"
+  ],
+  "WP8Requirements": [],
+  "WP8PublisherID": "{9e9b30cb-3ffe-48d7-bd53-b2697b736e2e}",
+  "WP8ProductID": "{8a47bc61-5e75-4d3e-a19d-f9bb71fd16be}",
+  "WPSdk": "8.0",
+  "WP8PackageIdentityName": "1234Telerik.HLOGOSCPD",
+  "WP8WindowsPublisherName": "CN=Telerik",
+  "WP8SupportedResolutions": [
+    "ID_RESOLUTION_WVGA",
+    "ID_RESOLUTION_WXGA",
+    "ID_RESOLUTION_HD720P"
+  ]
+}
