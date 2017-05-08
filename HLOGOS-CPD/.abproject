@@ -4,7 +4,7 @@
   "projectVersion": 1,
   "AppIdentifier": "com.telerik.HLOGOSCPD",
   "DisplayName": "HLOGOS-CPD",
-  "Author": "",
+  "Author": "Radhakrishnan",
   "Description": "HLOGOS-CPD",
   "BundleVersion": "1.0",
   "AndroidVersionCode": "1",
@@ -19,8 +19,7 @@
     "android.permission.INTERNET"
   ],
   "DeviceOrientations": [
-    "Portrait",
-    "Landscape"
+    "Portrait"
   ],
   "AndroidHardwareAcceleration": "true",
   "iOSStatusBarStyle": "Default",
@@ -41,5 +40,12 @@
     "ID_RESOLUTION_WVGA",
     "ID_RESOLUTION_WXGA",
     "ID_RESOLUTION_HD720P"
-  ]
+  ],
+  "CordovaPluginVariables": {
+    "com.telerik.plugin.telerikanalytics": {
+      "AUTO_TRACK_EXCEPTIONS": "True",
+      "AUTO_TRACK_KENDO_EVENTS": "True",
+      "PRODUCT_ID": "8a055b61a4f64fe181bfbc0afd33b8ce"
+    }
+  }
 }

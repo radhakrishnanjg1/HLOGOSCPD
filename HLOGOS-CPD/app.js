@@ -1,69 +1,47 @@
 'use strict';
 
-(function() {
-    var app = {
-        data: {},
-        localization: {
-            defaultCulture: 'en',
-            cultures: [{
-                name: "English",
-                code: "en"
-            }]
-        },
-        navigation: {
-            viewModel: kendo.observable()
-        },
-        showMore: {
-            viewModel: kendo.observable()
+(function (global) {
+    var app = global.app = global.app || {};
+    window.app = app;
+
+
+    // using sql db for storing offline information 
+    app.openDb = function () {
+        if (window.sqlitePlugin !== undefined) {
+            app.db = window.sqlitePlugin.openDatabase("HLOGOSCPD102");
+        } else {
+            // For debugging in simulator fallback to native SQL Lite
+            app.db = window.openDatabase("HLOGOSCPD102", "1.0", "Cordova Demo", 200000);
+            //app.db = window.sqlitePlugin.openDatabase("EthosINS");
         }
     };
 
-    var bootstrap = function() {
-        $(function() {
+    var bootstrap = function () {
+        var os = kendo.support.mobileOS,
+      statusBarStyle = os.ios && os.flatVersion >= 700 ? 'white-translucent' : 'white';
+        $(function () {
             app.mobileApp = new kendo.mobile.Application(document.body, {
-                transition: 'slide',
-                skin: 'nova',
-                initial: 'components/home/view.html'
-            });
+                //transition: 'slide',
+                layout: "tabstrip-layout",
+                skin: 'flat',
+                initial: 'components/authenticationView/view.html',// DCRView approveleaveView
+                statusBarStyle: statusBarStyle,
 
-            kendo.bind($('.navigation-link-text'), app.navigation.viewModel);
+            });
         });
     };
 
-    $(document).ready(function() {
-
-        var navigationShowMoreView = $('#navigation-show-more-view').find('ul'),
-            allItems = $('#navigation-container-more').find('a'),
-            navigationShowMoreContent = '';
-
-            allItems.each(function(index) {
-                navigationShowMoreContent += '<li>' + allItems[index].outerHTML + '</li>';
-            });
-
-             navigationShowMoreView.html(navigationShowMoreContent);
-        kendo.bind($('#navigation-show-more-view'), app.showMore.viewModel);
-
-        app.notification = $("#notify");
-
-    });
-
-    app.listViewClick = function _listViewClick(item) {
-        var tabstrip = app.mobileApp.view().footer.find('.km-tabstrip').data('kendoMobileTabStrip');
-        tabstrip.clear();
-    };
-
-    app.showNotification = function(message, time) {
-        var autoHideAfter = time ? time : 3000;
-        app.notification.find('.notify-pop-up__content').html(message);
-        app.notification.fadeIn("slow").delay(autoHideAfter).fadeOut("slow");
-    };
-
     if (window.cordova) {
-        document.addEventListener('deviceready', function() {
+        document.addEventListener('deviceready', function () {
             if (navigator && navigator.splashscreen) {
                 navigator.splashscreen.hide();
+                StatusBar.overlaysWebView(false); //Turns off web view overlay.
             }
+            //if (device.platform === 'iOS' && parseFloat(device.version) >= 7.0) {
+            //    document.body.style.marginTop = "20px";
+            //} 
             bootstrap();
+
         }, false);
     } else {
         bootstrap();
@@ -77,7 +55,7 @@
 
     window.app = app;
 
-    app.isOnline = function() {
+    app.isOnline = function () {
         if (!navigator || !navigator.connection) {
             return true;
         } else {
@@ -85,7 +63,7 @@
         }
     };
 
-    app.openLink = function(url) {
+    app.openLink = function (url) {
         if (url.substring(0, 4) === 'geo:' && device.platform === 'iOS') {
             url = 'http://maps.apple.com/?ll=' + url.substring(4, url.length);
         }
@@ -99,8 +77,8 @@
 
     /// start appjs functions
     /// end appjs functions
-    app.showFileUploadName = function(itemViewName) {
-        $('.' + itemViewName).off('change', 'input[type=\'file\']').on('change', 'input[type=\'file\']', function(event) {
+    app.showFileUploadName = function (itemViewName) {
+        $('.' + itemViewName).off('change', 'input[type=\'file\']').on('change', 'input[type=\'file\']', function (event) {
             var target = $(event.target),
                 inputValue = target.val(),
                 fileName = inputValue.substring(inputValue.lastIndexOf('\\') + 1, inputValue.length);
@@ -110,8 +88,8 @@
 
     };
 
-    app.clearFormDomData = function(formType) {
-        $.each($('.' + formType).find('input:not([data-bind]), textarea:not([data-bind])'), function(key, value) {
+    app.clearFormDomData = function (formType) {
+        $.each($('.' + formType).find('input:not([data-bind]), textarea:not([data-bind])'), function (key, value) {
             var domEl = $(value),
                 inputType = domEl.attr('type');
 
@@ -126,85 +104,90 @@
         });
     };
 
-    /// start kendo binders
-    kendo.data.binders.widget.buttonText = kendo.data.Binder.extend({
-        init: function(widget, bindings, options) {
-            kendo.data.Binder.fn.init.call(this, widget.element[0], bindings, options);
-        },
-        refresh: function() {
-            var that = this,
-                value = that.bindings["buttonText"].get();
+    
 
-            $(that.element).text(value);
-        }
-    });
-    /// end kendo binders
-}());
-
-/// start app modules
-(function localization(app) {
-    var localization = app.localization = kendo.observable({
-            cultures: app.localization.cultures,
-            defaultCulture: app.localization.defaultCulture,
-            currentCulture: '',
-            strings: {},
-            viewsNames: [],
-            registerView: function(viewName) {
-                app[viewName].set('strings', getStrings() || {});
-
-                this.viewsNames.push(viewName);
-            }
-        }),
-        i, culture, cultures = localization.cultures,
-        getStrings = function() {
-            var code = localization.get('currentCulture'),
-                strings = localization.get('strings')[code];
-
-            return strings;
-        },
-        updateStrings = function() {
-            var i, viewName, viewsNames,
-                strings = getStrings();
-
-            if (strings) {
-                viewsNames = localization.get('viewsNames');
-
-                for (i = 0; i < viewsNames.length; i++) {
-                    viewName = viewsNames[i];
-
-                    app[viewName].set('strings', strings);
-                }
-
-                app.navigation.viewModel.set('strings', strings);
-                app.showMore.viewModel.set('strings', strings);
-            }
-        },
-        loadCulture = function(code) {
-            $.getJSON('cultures/' + code + '/app.json',
-                function onLoadCultureStrings(data) {
-                    localization.strings.set(code, data);
-                });
-        };
-
-    localization.bind('change', function onLanguageChange(e) {
-        if (e.field === 'currentCulture') {
-            var code = e.sender.get('currentCulture');
-
-            updateStrings();
-        } else if (e.field.indexOf('strings') === 0) {
-            updateStrings();
-        } else if (e.field === 'cultures' && e.action === 'add') {
-            loadCulture(e.items[0].code);
-        }
-    });
-
-    for (i = 0; i < cultures.length; i++) {
-        loadCulture(cultures[i].code);
+    // 1 create requird master informaton 
+    app.createtable_employee_questions = function () {
+        var db = app.db;
+        db.transaction(function (tx) {
+            tx.executeSql("CREATE TABLE IF NOT EXISTS employee_questions(ID INTEGER PRIMARY KEY ASC,"
+                    + "Lesson_Test_ID INTEGER,"
+                    + "Lesson_ID INTEGER,"
+                    + "Question_ID INTEGER,"
+                    + "Question_Type_Master_ID INTEGER,"
+                    + "Question_Option_Type_Master_ID INTEGER,"
+                    + "Question_Option_Answer_ID INTEGER,"
+                    + "Option_URL TEXT,"
+                    + "Test_Flow_ID INTEGER,"
+                    + "TEST_START BLOB,"
+                    + "TEST_END BLOB,"
+                    + " added_on BLOB)", []);
+        });
     }
 
-    localization.set('currentCulture', localization.defaultCulture);
-})(window.app);
-/// end app modules
+    // 2 insert dcr_master
+    app.addto_employee_questions = function (Lesson_Test_ID, Lesson_ID, Question_ID,
+        Question_Type_Master_ID, Question_Option_Type_Master_ID, Question_Option_Answer_ID,
+        Option_URL, Test_Flow_ID
+        ) {
+        var TEST_START = todateddmmyyyhhmmss_hyphen(new Date());
+        var TEST_END = todateddmmyyyhhmmss_hyphen(new Date());
+        app.db.transaction(function (tx) {
+            var addedon = todateddmmyyyhhmmss_hyphen(new Date());
+            tx.executeSql("insert into employee_questions(Lesson_Test_ID, Lesson_ID, Question_ID,"
+              + "Question_Type_Master_ID, Question_Option_Type_Master_ID, Question_Option_Answer_ID,"
+              + "Option_URL, Test_Flow_ID, TEST_START, TEST_END,added_on) "
+                + " values (?,?,?,?,?,?,?,?,?,?,?)",
+                            [Lesson_Test_ID, Lesson_ID, Question_ID,
+                            Question_Type_Master_ID, Question_Option_Type_Master_ID, Question_Option_Answer_ID,
+                            Option_URL, Test_Flow_ID, TEST_START, TEST_END, addedon],
+                          app.onsuccess,
+                          app.onerror);
+        });
+    }
+
+    // 3 Select  
+    app.select_test_data = function (fn) {
+        app.db.transaction(function (tx) {
+            tx.executeSql("SELECT * FROM employee_questions  ", [], fn, app.onError);
+        });
+    };
+
+    //4 Delete
+    app.delete_employee_questions_by_questionid = function (Question_ID) {
+        app.db.transaction(function (tx) {
+            tx.executeSql("delete from employee_questions where Question_ID = ?", [Question_ID],
+                          app.onsuccess,
+                          app.onError);
+        });
+    };
+
+    app.delete_employee_questions = function () {
+        app.db.transaction(function (tx) {
+            tx.executeSql("delete from employee_questions ", [],
+                          app.onsuccess,
+                          app.onError);
+        });
+    };
+    app.onError = function (tx, e) {
+        alert(e.message);
+        console.log("Error: " + e.message);
+        //  app.hideOverlay();
+    }
+
+    app.onsuccess = function (tx, r) {
+        // console.log("Your SQLite query was successful!");
+        // app.refresh();
+        // app.hideOverlay();
+    }
+
+}(window));
+
+function app_db_init() {
+    app.openDb();
+    app.createtable_employee_questions();
+    app.delete_employee_questions();
+}
 
 // START_CUSTOM_CODE_kendoUiMobileApp
 // Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes

@@ -1,0 +1,24 @@
+<div id="testhistoryView" data-role="view" data-title="History"
+     data-layout="afterlogin" 
+     data-model="app.testhistoryView.testhistoryViewModel"
+     data-bind="events: { show: onShow }">   
+    <div id="dvtesthistoryView" style="display:none;">
+        <div class="panel panel-custom">
+            <div class="panel-body padding0"> 
+                <div data-role="listview" id="listview-lessonhistory"></div>
+                <!--Score	Lesson	Lesson_Taken_Time -->
+                <script type="text/x-kendo-tmpl" id="template-lessonhistory">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3>#: Lesson #</h3>
+                            <div class="testdesc">
+                                <p>Score : #: Score #</p>
+                                <p>Test Date : #: Lesson_Taken_Time #</p>
+                            </div>
+                        </div> 
+                    </div>
+                </script>
+            </div> 
+        </div>
+    </div>
+</div>

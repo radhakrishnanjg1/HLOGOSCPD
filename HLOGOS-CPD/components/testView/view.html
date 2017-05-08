@@ -1,0 +1,112 @@
+<div id="testView" data-role="view" data-title="Test"
+     data-layout="afterlogin" data-before-hide="enableBackButton"
+     data-model="app.testView.testViewModel"
+     data-bind="events: { show: onShow,afterShow: afterShow }">
+    <footer data-role="footer">
+        <div class="btn-group btn-group-justified">
+            <a class="btn btn-info">#<span id="spanquestionnumber"></span>/<span id="spantotalquestions"></span></a>
+            <a class="btn btn-primary"
+               id="btnnext"
+               data-bind="events: { click: goto_next_question }">
+                Next
+            </a>
+        </div> 
+    </footer>
+    <div id="dvtestView" style="display:block;">
+        <div class="panel panel-custom">
+            <!--<div  class="sdsdsdmedia">
+                <div class="video-container" style="overflow:scroll!important;">
+                    <div style="width:100%;color:#000;z-index:10000;display:none;text-align:right;" id="showbut"><a data-role="button" data-icon="fullscreen-e" onclick="showheader();" style="color:#000;z-index:10000;">Exit Full Screen</a></div>
+                   <iframe height="240" style="width:100%;" frameborder="0"
+                            id="showdetailvideo" style="z-index:10;"
+                            src="http://himalayasql.cloudapp.net/EthosFilesUpload/HLOGOSCPD/Content/Review%20Course/index.html"></iframe>
+                <iframe height="240" style="width:100%;" frameborder="0"
+                            id="showdetailvideo" style="z-index:10;"
+                            src="https://www.slideshare.net/slideshow/embed_code/key/xHQoy65WxIzg8G"></iframe>
+                </div>
+            </div>-->  
+            <div class="panel panel-default text-primary" id="paneltestnote" style="display:none"> 
+                Note :You can move only forward while taking the challenge, so please be sure of the answer before you click!
+            </div>
+            <div class="panel panel-headingcustomquestion">
+                <span id="headerquestion">
+                    Question Name
+                </span>
+            </div>
+            <div class="panel-body padding0">
+                <div id="dvmultichoice" style="display:none">
+                    <div class="text-primary pull-right">Note : Select <span id="spanmultichoicecount"></span> option(s). </div>
+                    <input type="checkbox" id="chk1" name="chk" value="A" test_flow_id="0">
+                    <label for="chk1">A </label>
+                    <input type="checkbox" id="chk2" name="chk" value="B" test_flow_id="0">
+                    <label for="chk2">B</label>
+                    <input type="checkbox" id="chk3" name="chk" value="C" test_flow_id="0">
+                    <label for="chk3">C </label>
+                    <input type="checkbox" id="chk4" name="chk" value="D" test_flow_id="0">
+                    <label for="chk4">D  </label>
+                    <div id="dvmultichoiceoption5" style="display:none">
+                        <input type="checkbox" id="chk5" name="chk" value="E" test_flow_id="0">
+                        <label for="chk5" id="chk5for">E  </label>
+                    </div>
+                    <div id="dvmultichoiceoption6" style="display:none">
+                        <input type="checkbox" id="chk6" name="chk" value="F" test_flow_id="0">
+                        <label for="chk6" id="chk6for">F  </label>
+                    </div>
+                    <div id="dvmultichoiceoption7" style="display:none">
+                        <input type="checkbox" id="chk7" name="chk" value="G" test_flow_id="0">
+                        <label for="chk7" id="chk7for">G  </label>
+                    </div>
+                </div>
+                <div id="dvsinglechoice" style="display:none">
+                    <div class="text-primary pull-right">Note : Select 1 option. </div>
+                    <input type="radio" id="rad1" name="rad" value="A" test_flow_id="0">
+                    <label for="rad1">A</label><br />
+                    <input type="radio" id="rad2" name="rad" value="B" test_flow_id="0">
+                    <label for="rad2">B</label>
+                    <input type="radio" id="rad3" name="rad" value="C" test_flow_id="0">
+                    <label for="rad3">C </label>
+                    <input type="radio" id="rad4" name="rad" value="D" test_flow_id="0">
+                    <label for="rad4">D  </label>
+                    <div id="dvsinglechoiceoption5" style="display:none">
+                        <input type="radio" id="rad5" name="rad" value="E" test_flow_id="0">
+                        <label for="rad5" id="rad5for">E  </label>
+                    </div>
+                    <div id="dvsinglechoiceoption6" style="display:none">
+                        <input type="radio" id="rad6" name="rad" value="F" test_flow_id="0">
+                        <label for="rad6" id="rad6for">F  </label>
+                    </div>
+                    <div id="dvsinglechoiceoption7" style="display:none">
+                        <input type="radio" id="rad7" name="rad" value="G" test_flow_id="0">
+                        <label for="rad7" id="rad7for">G  </label>
+                    </div>
+                </div>
+                <div id="dvtruefalse" style="display:none">
+                    <input type="radio" id="radiotrue" name="truefalse" value="True">
+                    <label for="radiotrue" class="green">True</label>
+                    <input type="radio" id="radiofalse" name="truefalse" value="False">
+                    <label for="radiofalse" class="red">False</label>
+                </div>
+                <input id="hdnquestion_id" value="" type="hidden" />
+                <input id="hdnquestion_type_master_id" value="" type="hidden" />
+                <input id="hdnquestion_option_type_master_id" value="" type="hidden" />
+                <input type="hidden" value=""
+                       id="hdnstr_testanswer_details" name="hdnstr_testanswer_details" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div data-role="modalview" id="modalview-error" style="width:80% !important ;">
+        <div data-role="header">
+            <div data-role="navbar" style="text-align:left !important ">
+                <div id="modelerrorheader">Error! </div>
+                <a data-click="closemodalviewerror" data-role="button"
+                   data-align="right"><i class="fa fa-1-5x fa-close"></i></a>
+            </div>
+            <div class="panel panel-body">
+                <i class="fa fa-1-5x fa-warning"></i>
+                <span id="h3errormessage"></span>
+            </div>
+        </div>
+    </div>
+</div>

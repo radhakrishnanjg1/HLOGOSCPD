@@ -1,0 +1,30 @@
+<div id="testcontentView" data-role="view"
+     data-title="Content"
+     data-before-hide="enableBackButton"
+     data-layout="afterlogin"
+     data-model="app.testcontentView.testcontentViewModel"
+     data-show="app.testcontentView.testcontentViewModel.onShow"
+     data-after-show="app.testcontentView.testcontentViewModel.afterShow">
+    <!--<div data-role="header">
+        <div data-role="view-title"></div>
+    </div>-->
+    <footer data-role="footer">
+        <div class="btn-group btn-group-justified">
+            <a class="btn btn-primary"
+               data-bind="events: { click: redirectto_test }">
+                Start Question <i class="fa fa-arrow-right"></i>
+            </a>
+        </div>
+    </footer>
+    <div id="dvtestcontentView">
+        <div class="panel panel-custom padding0">
+            <div class="panel-body">
+                <div class="row text-center">
+                    <iframe height="300" style="width:100%;" frameborder="0"
+                            id="iftestcontent"  
+                         src="http://himalayasql.cloudapp.net/EthosFilesUpload/HLOGOSCPD/Content_test_rk/organizationalchange(Web)/index.html"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

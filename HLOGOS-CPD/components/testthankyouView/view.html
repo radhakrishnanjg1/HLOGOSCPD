@@ -1,0 +1,36 @@
+<div id="testthankyouView" data-role="view"
+     data-title="Thank You"
+     data-before-hide="enableBackButton"
+     data-layout="afterlogin"
+     data-model="app.testthankyouView.testthankyouViewModel"
+     data-show="app.testthankyouView.testthankyouViewModel.onShow"
+     data-after-show="app.testthankyouView.testthankyouViewModel.afterShow">
+    <!--<div data-role="header">
+        <div data-role="view-title"></div>
+    </div>-->
+    <footer data-role="footer">
+        <div class="btn-group btn-group-justified">
+            <a class="btn btn-primary"
+               data-bind="events: { click: redirectto_test_answer }">
+                View Answers <i class="fa fa-info"></i>
+            </a>
+        </div>
+    </footer>
+    <div id="dvtestthankyouView">
+        <div class="panel panel-custom padding0">
+            <div class="panel-body">
+                <div class="row text-center">
+                    <i  id="itestresult" style="width:50% !important ;"> 
+                    </i>
+                     
+                    <!-- grid start -->
+                    <div id="tblresultlist"></div>
+                    <!-- grid  end -->
+                    
+                    <img src="images/start.jpg" id="spanthankyouimage"
+                         style="border:0px !important;padding:0px !important;width:99%;height:100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

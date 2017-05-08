@@ -1,0 +1,23 @@
+<div id="testintroductionView" data-role="view"
+     data-title="Introduction"
+     data-before-hide="enableBackButton"
+     data-layout="afterlogin"
+     data-model="app.testintroductionView.testintroductionViewModel"
+     data-show="app.testintroductionView.testintroductionViewModel.onShow"
+     data-after-show="app.testintroductionView.testintroductionViewModel.afterShow">
+     
+    <footer data-role="footer">
+        <div class="btn-group btn-group-justified">
+            <a class="btn btn-primary"
+               data-bind="events: { click: redirectto_test }">
+                Start Test<i class="fa fa-arrow-right"></i>
+            </a>
+        </div>
+    </footer>
+    <div id="dvtestintroductionView">
+        <img src="images/start.jpg" id="spanintroductionimage"
+             data-role="button"
+             data-bind="events: {click: redirectto_test }"
+             style="border:0px !important;padding:0px !important;width:99%;height:100%;" />
+    </div>
+</div>

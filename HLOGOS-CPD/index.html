@@ -1,68 +1,164 @@
-<!DOCTYPE html>
-<html>
-
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title></title>
+    <title>HLOGOS-CPD APP</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width">
-    <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
+	style-src 'self' 'unsafe-inline' 'unsafe-eval'  *;media-src 'self'
+	'unsafe-inline' 'unsafe-eval' *;">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="kendo/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="kendo/styles/kendo.default.min.css" rel="stylesheet" />
+    <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
 
-    <link href="styles/overrides.css" rel="stylesheet">
-    <link href="styles/main.css" rel="stylesheet">
-
+    <link href="styles/rkcustom.css" rel="stylesheet" />
     <script src="cordova.js"></script>
     <script src="kendo/js/jquery.min.js"></script>
-    <script src="kendo/js/kendo.mobile.min.js"></script>
+    <script src="kendo/js/kendo.dataviz.mobile.min.js"></script>
+    <script src="scripts/kendo.all.min.js"></script>
+    <!--Mapbox scripts and css-->
+    <script src="scripts/mapbox.js"></script>
+    <!--bower components-->
+    <script src="bower_components/everlive/src/everlive.all.js"></script>
+    <script src="bower_components/lodash/dist/lodash.min.js"></script>
+    <script src="bower_components/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+    <!--<script src="bower_components/noty/js/noty/layouts/bottom.js"></script>-->
+    <script src="bower_components/noty/js/noty/themes/metroui.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!--App and utilities scripts-->
     <script src="app.js"></script>
+    <script src="scripts/common/navigation.js"></script>
+    <script src="scripts/common/notify.js"></script>
+    <script src="scripts/common/settings.js"></script>
+    <script src="scripts/common/validate.js"></script>
+    <script src="scripts/common/constants.js"></script>
+    <script src="scripts/common/utils.js"></script>
+    <script src="scripts/rkutilities.js"></script>
+    <script src="scripts/linq.min.js"></script>
+
+    <!--data provider-->
+    <script src="dataProviders/defaultProvider.js"></script>
+    <!--new pages scripts-->
+    <!--left menu start-->
+    <script src="components/authenticationView/index.js"></script>
+    <script src="components/dashboardView/index.js"></script>
+    <script src="components/testwelcomeView/index.js"></script>
+    <script src="components/testintroductionView/index.js"></script>
+    <script src="components/testcontentView/index.js"></script>
+    <script src="components/testView/index.js"></script>
+    <script src="components/testthankyouView/index.js"></script>
+    <script src="components/testhistoryView/index.js"></script>
+    <script src="components/testanswerView/index.js"></script>
+    <!--common -->
+    <script src="components/changepasswordView/index.js"></script>
+    <script src="components/updateprofileView/index.js"></script>
+    <script src="components/offlineView/index.js"></script>
+    <script src="components/supportView/index.js"></script>
+
 </head>
+<body id="ethosapp">
 
-<body id="kendoUiMobileApp">
-    <script src="components/home/index.js"></script>
     <div data-role="layout" data-id="main">
-        <header data-role="header">
-            <div data-role="navbar">
-                <span data-role="view-title"></span>
-            </div>
-        </header>
-        <footer data-role="footer">
-            <div data-role="tabstrip" id="navigation-container">
-                <a href="components/home/view.html" data-icon="home"><span class="navigation-link-text" data-bind="text: strings.home.title"></span></a>
-            </div>
-            <div id="navigation-container-more" style="display: none">
-            </div>
-        </footer>
     </div>
-
-
-    <div id="navigation-show-more-view" data-role="view" data-title="Show More" data-layout="main">
-        <header data-role="header">
+    <div data-role="layout" data-id="mobile-tabstrip">
+    </div>
+    <!--use the data-after-show and data-before-hide attributes on your view definition-->
+    <div data-role="layout" data-id="afterlogin" data-stretch="true">
+        <div data-role="header">
             <div data-role="navbar">
-                <span data-bind="text: strings._app.showMoreTitle"></span>
+                <a data-role="button" data-rel="drawer"
+                   href="#left-drawer"
+                   data-align="left" class="drawertopicon">
+                    <i class="fa fa-1-5x fa-bars"></i>
+                </a>
+                <div data-role="view-title"></div>
+                <!--<a data-role="button" data-rel="drawer"
+                   href="#right-drawer"
+                   data-align="right" class="drawertopicon">
+                    <i class="fa fa-1-5x fa-cog"></i>
+                </a>-->
+            </div>
+        </div>
+        <div id="wrapper">
+            <div id="page-wrapper" class="container-fluid" style="overflow:auto ;">
+            </div>
+        </div>
+    </div>
+    <div data-role="drawer" id="left-drawer" data-title="left"
+         data-swipe-to-open-views="['dashboardview', 
+         'testhistoryView', 
+         'updateprofileView',
+         'changepasswordView',
+         'supportView']">
+        <header data-role="header">
+            <div>
+                <img src="images/H_logo.png" style="width:15em !important;">
             </div>
         </header>
-        <ul data-role="listview" data-style="inset" data-click="app.listViewClick">
+        <ul data-role="listview" class="nav" style="background-color:#fff !important">
+            <li data-role="button">
+                <span class="hgreen">Hi</span>  &nbsp; <span id="dvusername" class="horange">
+                </span>
+                <input type="hidden" id="hdnLogin_ID" value="0" />
+                <input type="hidden" id="hdnEmployee_ID" value="0" />
+            </li>
+            <li data-role="button" data-click="app.navigation.navigatedashboard" >
+                <i class="fa fa-1-5x fa-tachometer"></i> 
+                Dashboard
+            </li> 
+            <li data-role="button" data-click="app.navigation.navigatetesthistoryView" >
+                <i class="fa fa-1-5x fa-history"></i>
+                Test History
+            </li> 
+            <li data-role="button" data-click="app.navigation.navigateupdateprofile">
+                <i class="fa fa-1-5x fa-edit"></i>
+                Update Profile
+            </li>
+            <li data-role="button" data-click="app.navigation.navigatechangepassword">
+                <i class="fa fa-1-5x fa-key"></i> 
+                Change Password
+            </li>
+            <li data-role="button" data-click="app.navigation.navigatesupport">
+                <i class="fa fa-1-5x fa-phone"></i>
+                Support
+            </li>
+            <li data-role="button" data-click="app.navigation.navigatesignout">
+                 <i class="fa fa-1-5x fa-sign-out"></i> 
+                Log Out
+            </li> 
         </ul>
-    </div>
-
-    <div data-role="layout" data-id="main-nonav">
-        <header data-role="header">
-            <div data-role="navbar">
-                <span data-role="view-title"></span>
+        <!--<footer data-role="footer">
+            <div>
+                &nbsp;
             </div>
-        </header>
-        <footer data-role="footer">
-        </footer>
+        </footer>-->
     </div>
-    <div id="notify" class="notify-pop-up">
-        <span class="notify-pop-up__content"></span>
-    </div>
-    <!--  start index html save -->
-    <!--  end index html save -->
-
-    <!-- START_CUSTOM_CODE_kendoUiMobileApp -->
-    <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
-
-    <!-- END_CUSTOM_CODE_kendoUiMobileApp -->
+    <!--<div data-role="drawer" id="right-drawer" data-position="right"
+        data-swipe-to-open-views="['dashboard-view', 
+         'supportView', 
+         'changepassword-view']">
+        <ul data-role="listview" class="km-vertical-tabstrip nav" style="background-color:#fff !important">
+            
+            <li data-role="button" data-click="app.navigation.navigatechangepassword">
+                <i class="fa fa-2x fa-key"></i>
+                    <br />
+                    Change Password 
+            </li>
+            <li data-role="button" data-click="app.navigation.navigatesignout">
+              
+                    <i class="fa fa-2x fa-sign-out"></i>
+                    <br />
+                    Log Out 
+            </li>
+            <li data-role="button" data-click="app.navigation.navigatesupport"> 
+                    <i class="fa fa-2x fa-phone"></i>
+                    <br />
+                    Support
+               
+            </li>
+        </ul>
+    </div>-->
 </body>
-
 </html>

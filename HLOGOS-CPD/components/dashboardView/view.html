@@ -1,0 +1,32 @@
+<div id="dashboardview" data-role="view" data-title="Dashboard"
+     data-layout="afterlogin"
+     data-after-show="disableBackButton" 
+     data-before-hide="enableBackButton"
+     data-model="app.dashboardView.dashboardViewModel"
+     data-bind="events: { show: onShow }">  
+    
+    <div id="dvdashboardview" style="display:none;">
+        <div class="panel panel-custom">
+            <div class="panel-body padding0">
+                <div class="text-center marginTopBottom-10">
+                    <img src="images/ctx.png" alt="ctx logo" width="300px" height="100px" />
+                </div>
+                <div data-role="listview" id="listview-lessonlist"></div>
+                <!--Lesson_ID	Lesson	Schedule_From_Date	Schedule_To_Date-->
+                <script type="text/x-kendo-tmpl" id="template-lessonlist">
+                    <div class="row" data-role="button"
+                               data-lesson_id="${Lesson_ID}"
+                               data-click="fun_goto_test">
+                        <div class="col-xs-12">
+                            <h3>#: Lesson #</h3>
+                            <div class="testdesc">
+                                <p>Valid From : #: Schedule_From_Date #</p>
+                                <p>Valid To : #: Schedule_To_Date #</p>
+                            </div>
+                        </div> 
+                    </div>
+                </script>
+            </div> 
+        </div>
+    </div>
+</div>

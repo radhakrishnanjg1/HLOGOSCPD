@@ -1,0 +1,24 @@
+<div id="offline-view" data-role="view" data-title="Offline"
+     data-after-show="disableBackButton" data-before-hide="enableBackButton"
+     data-layout="afterlogin"
+     data-model="app.offlineView.offlineViewModel"
+     data-bind="events: { show: onShow }" data-stretch="true">
+    <div data-role="header">
+
+    </div>
+
+    <div class="col-xs-12 col-sm-12 full-height" id="dvoffline" align="center">
+        <div id="dvofflinecontent" class="middle-align">
+            <i class="fa fa-wifi fa-5x" style="color:#eff7ec"></i>
+            <br />
+            <p class="text-primary">
+                No internet connection available. <br>
+                Please connect your internet to proceed
+            </p>
+            <a class="btn btn-primary"
+               id="currentpage"
+               data-bind="events: { click: gotoonlinepage }">Retry</a>
+        </div>
+    </div>
+    <input type="hidden" value="" id="hdncurrentpage" />
+</div>

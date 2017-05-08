@@ -1,0 +1,39 @@
+<div id="testanswerView" data-role="view" data-title="Answers" data-reload="true"
+     data-layout="afterlogin" data-before-hide="enableBackButton"
+     data-model="app.testanswerView.testanswerViewModel"
+     data-bind="events: { show: onShow,afterShow: afterShow }">
+    <!--<div data-role="header">
+        <div data-role="view-title"></div>
+    </div>-->
+    <footer data-role="footer">
+        <div class="btn-group btn-group-justified">
+            <a class="btn btn-info">#<span id="spanquestionnumber_answer"></span>/<span id="spantotalquestions_answer"></span></a>
+            <a class="btn btn-primary"
+               id="btnnext_answer"
+               data-bind="events: { click: goto_next_question }">
+                Next
+            </a>
+            <a class="btn btn-success" 
+               data-bind="events: { click: goto_homeview }">
+                Home
+            </a>
+        </div>
+    </footer>
+    <div id="dvtestView" style="display:block;">
+        <div class="panel panel-custom">
+            <div class="panel panel-headingcustomquestion">
+                <span id="headerquestion_answer" class="headerquestion">
+                    Question Name
+                </span>
+            </div>
+            <div class="panel-body padding0">
+                <!-- grid start -->
+                <div id="tblquestionlist"></div>
+                <!-- grid  end -->
+                <input id="hdnquestion_id_answer" value="" type="hidden" />
+                <input id="hdnquestion_type_master_id_answer" value="" type="hidden" />
+                <input id="hdnquestion_option_type_master_id_answer" value="" type="hidden" />
+            </div>
+        </div>
+    </div>
+</div>
