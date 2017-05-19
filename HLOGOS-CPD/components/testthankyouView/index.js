@@ -14,7 +14,9 @@
             disableBackButton();
             var firstquestion = JSON.parse(localStorage.getItem("question_details"));
              var imageurl = firstquestion[0].ThankYou_Image_URL;
-             $("#spanthankyouimage").attr('src', "http:" + imageurl);
+             if (imageurl !== "") {
+                 $("#spanthankyouimage").attr('src', "http:" + imageurl);
+             }
              var firsttestsuccess = JSON.parse(localStorage.getItem("test_successdetails"));
              //$("#span_test_timetaken").html(firsttestsuccess[0].TimeTaken);
              //$("#span_test_score").html(firsttestsuccess[0].Score);

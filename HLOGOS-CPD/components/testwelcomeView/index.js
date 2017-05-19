@@ -15,7 +15,10 @@
             var firstquestion = JSON.parse(localStorage.getItem("question_details"));
             //Welcome_Image_URL	Introduction_Image_URL	ThankYou_Image_URL
             var imageurl = firstquestion[0].Welcome_Image_URL;
-            $("#spanwelcomeimage").attr('src',"http:"+ imageurl);
+            if (imageurl !== "")
+            { 
+                $("#spanwelcomeimage").attr('src', "http:" + imageurl);
+            }
         },
         redirectto_introduction_test: function () {
             app.navigation.navigatetestintroductionView();

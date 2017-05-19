@@ -15,7 +15,9 @@
             var firstquestion = JSON.parse(localStorage.getItem("question_details"));
             //Welcome_Image_URL	Introduction_Image_URL	ThankYou_Image_URL
             var imageurl = firstquestion[0].Introduction_Image_URL;
-            $("#spanintroductionimage").attr('src', "http:" + imageurl); 
+            if (imageurl !== "") {
+                $("#spanintroductionimage").attr('src', "http:" + imageurl);
+            }
         },
         redirectto_test: function () {
             var allrecords = JSON.parse(localStorage.getItem("test_single"));
